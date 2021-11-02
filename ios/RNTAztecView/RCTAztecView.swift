@@ -14,7 +14,7 @@ class RCTAztecView: Aztec.TextView {
     @objc var onSelectionChange: RCTBubblingEventBlock? = nil
     @objc var onActiveFormatsChange: RCTBubblingEventBlock? = nil
     @objc var onActiveFormatAttributesChange: RCTBubblingEventBlock? = nil
-    @objc var autoCorrect: Bool? = false
+    @objc var autoCorrect: Bool = false
     @objc var blockType: NSDictionary? = nil {
         didSet {
             guard let block = blockType, let tag = block["tag"] as? String else {
@@ -28,6 +28,10 @@ class RCTAztecView: Aztec.TextView {
         didSet {
             forceTypingAttributesIfNeeded()
         }
+    }
+
+    override func didSetProps(_ changedProps: [String]!) {
+        autocorrectionType = self.autoCorrect ? .yes : .no
     }
 
     private var previousContentSize: CGSize = .zero
