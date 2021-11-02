@@ -67,6 +67,7 @@ class RCTAztecView: Aztec.TextView {
             placeholderLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: contentInset.left + textContainerInset.left + textContainer.lineFragmentPadding),
             placeholderLabel.topAnchor.constraint(equalTo: topAnchor, constant: contentInset.top + textContainerInset.top)
             ])
+        autocorrectionType = autoCorrect ? .yes : .no;
     }
 
     // MARK - View Height: Match to content height
