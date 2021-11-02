@@ -293,6 +293,15 @@ public class ReactAztecManager extends SimpleViewManager<ReactAztecText> {
         }
     }
 
+    @ReactProp(name = "autoCorrect")
+    public void setAutoCorrect(ReactAztecText view, Boolean autoCorrect) {
+        if (autoCorrect == true) {
+            view.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES | InputType.TYPE_TEXT_FLAG_MULTI_LINE | InputType.TYPE_TEXT_FLAG_AUTO_CORRECT);
+        } else {
+            view.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES | InputType.TYPE_TEXT_FLAG_MULTI_LINE);
+        }
+    }
+
     @ReactProp(name = "maxImagesWidth")
     public void setMaxImagesWidth(ReactAztecText view, int maxWidth) {
         view.setMaxImagesWidth(maxWidth);
