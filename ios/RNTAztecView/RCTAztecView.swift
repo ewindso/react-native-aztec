@@ -14,6 +14,7 @@ class RCTAztecView: Aztec.TextView {
     @objc var onSelectionChange: RCTBubblingEventBlock? = nil
     @objc var onActiveFormatsChange: RCTBubblingEventBlock? = nil
     @objc var onActiveFormatAttributesChange: RCTBubblingEventBlock? = nil
+    @objc var autoCorrect: Bool? = false
     @objc var blockType: NSDictionary? = nil {
         didSet {
             guard let block = blockType, let tag = block["tag"] as? String else {
