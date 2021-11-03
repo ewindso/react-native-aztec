@@ -6,6 +6,7 @@ import android.graphics.Typeface;
 import androidx.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.text.InputType;
 import android.text.util.Linkify;
 import android.util.Log;
 import android.util.TypedValue;
