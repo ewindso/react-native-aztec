@@ -84,6 +84,12 @@ class AztecView extends React.Component {
     }
   }
 
+  sendSpaceAndBackspace() {
+    if(Platform.OS === 'android') {
+      this.dispatch(AztecManager.Commands.sendSpaceAndBackspace);
+    }
+  }
+
   requestHTMLWithCursor() {
     this.dispatch(AztecManager.Commands.returnHTMLWithCursor)
   }
@@ -190,6 +196,12 @@ class AztecView extends React.Component {
   _onPress = (event) => {
     this.focus(event); // Call to move the focus in RN way (TextInputState)
     this._onFocus(event); // Check if there are listeners set on the focus event
+
+    if (Platform.OS === 'android') {
+      setTimeout(() => {
+        this.sendSpaceAndBackspace(); 
+      }, 250);
+    }
   }
 
   render() {
