@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import ReactNative, {Platform, ViewPropTypes, UIManager, ColorPropType, TouchableWithoutFeedback} from 'react-native';
+import ReactNative, {Platform, ViewPropTypes, UIManager, ColorPropType, TouchableWithoutFeedback, Keyboard} from 'react-native';
 import TextInputState from 'react-native/Libraries/Components/TextInput/TextInputState';
 import RCTAztecView from './RCTAztecView';
 
@@ -33,6 +33,30 @@ class AztecView extends React.Component {
     onCaretVerticalPositionChange: PropTypes.func,
     blockType: PropTypes.object,
     ...ViewPropTypes, // include the default view properties
+  }
+
+  constructor(props) {
+    super(props)
+
+    this.keyboardVisibleRef = React.createRef(false);
+  }
+
+  componentWillMount() {
+    this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this._keyboardDidShow);
+    this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);
+  }
+
+  componentWillUnmount() {
+    this.keyboardDidShowListener.remove();
+    this.keyboardDidHideListener.remove();
+  }
+
+  _keyboardDidShow = () => {
+    this.keyboardVisibleRef.current = true;
+  }
+
+  _keyboardDidHide = () => {
+    this.keyboardVisibleRef.current = false;
   }
 
   dispatch = (command, params) => {
@@ -197,7 +221,7 @@ class AztecView extends React.Component {
     this.focus(event); // Call to move the focus in RN way (TextInputState)
     this._onFocus(event); // Check if there are listeners set on the focus event
 
-    if (Platform.OS === 'android') {
+    if (!this.keyboardVisibleRef.current && Platform.OS === 'android') {
       setTimeout(() => {
         this.sendSpaceAndBackspace(); 
       }, 250);
